@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">تحميل المحاكاة...</title>
+  <link rel="icon" type="image/png" href="./Image/favicon.png">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    :root {
+      --primary: #4f46e5;
+      /* Fallback */
+    }
+
+    .btn-home {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid white;
+      color: #1e293b;
+      border-radius: 50px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-home:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+      padding: 20px 24px 10px;
+      width: 100%;
+    }
+
+    .header-main-space {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 1024px) {
+      header {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 15px 15px 5px;
+      }
+
+      .header-sidebar-space {
+        display: none;
+      }
+
+      .header-main-space {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-sidebar-space"></div>
+    <div class="header-main-space">
+      <div class="brand-pill">
+        <i data-lucide="sparkles" id="headerIcon" style="color: var(--primary)"></i>
+        <h1 id="screenTitle">تحميل الشاشة...</h1>
+      </div>
+      <a href="index.html" class="btn-home">
+        <i data-lucide="home" size="16"></i>
+        الرئيسية
+      </a>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <div class="sidebar">
+      <div class="panel static-image-container">
+        <img src="" alt="Screenshot" id="clickableImg" onclick="openImage(this.src)">
+      </div>
+      <div class="panel" style="flex: 1.5;">
+        <div class="panel-header"><i data-lucide="list-checks" size="18"></i> تسلسل الخطوات</div>
+        <div id="stepsList"></div>
+      </div>
+      <div class="panel" style="flex: 0.8;">
+        <div class="panel-header"><i data-lucide="bell" size="18"></i> التنبيهات والتحقق</div>
+        <div id="statusList"></div>
+      </div>
+    </div>
+
+    <div class="panel flow-display" id="flowContainer">
+      <div id="emptyMsg" style="margin: auto; text-align: center; color: var(--slate-400)">
+        <i data-lucide="play-circle" size="48" style="margin-bottom: 10px;"></i>
+        <p>جاهز للبدء </p>
+      </div>
+    </div>
+  </main>
+
+  <div id="imageModal" class="modal-overlay" onclick="closeImage()">
+    <img class="modal-content" id="fullImage">
+  </div>
+
+  <div class="action-bar">
+    <button class="btn-reset" onclick="resetWorkflow()"><i data-lucide="rotate-ccw" size="16"></i> إعادة
+      تعيين</button><button class="btn-playall" onclick="playAllSteps()"><i data-lucide="play" size="16"></i> تشغيل
+      الكل</button>
+    <button class="btn-back" id="backBtn" onclick="prevStep()" disabled><i data-lucide="chevron-right" size="16"></i>
+      السابق</button>
+    <button class="btn-next" id="nextBtn" onclick="nextStep()">التالي <i data-lucide="chevron-left"
+        size="16"></i></button>
+  </div>
+
+  <script src="./data.js"></script>
+  <script>
+    // Read query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const screenId = urlParams.get('screen');
+
+    const screenData = allScreensData[screenId];
+    if (!screenData) {
+      alert("خطأ: لم يتم العثور على بيانات الشاشة المحددة!");
+      window.location.href = 'index.html';
+    }
+
+    // Set dynamic properties
+    document.title = screenData.title;
+    document.getElementById('screenTitle').innerText = screenData.title;
+    document.getElementById('clickableImg').src = screenData.image;
+    document.documentElement.style.setProperty('--primary', screenData.primary);
+
+    // Set workflowData dynamically for main.js to use
+    const workflowData = screenData.steps;
+  </script>
+  <script src="./main.js"></script>
+</body>
+
+</html>

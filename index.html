@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> INVENTORIES</title>
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="./data.js"></script>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --glass: rgba(255, 255, 255, 0.7);
+      --slate-800: #1e293b;
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .title-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      padding: 15px 40px;
+      border-radius: 100px;
+      border: 1px solid white;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1200px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      background: white;
+      border-color: var(--primary);
+    }
+
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      background: #eef2ff;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      background: #dcfce7;
+      color: #166534;
+      border-radius: 50px;
+      width: fit-content;
+    }
+
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 15px 50px 15px 20px;
+      border-radius: 100px;
+      border: 1px solid white;
+      background: var(--glass);
+      backdrop-filter: blur(8px);
+      font-size: 1rem;
+      outline: none;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      color: var(--slate-800);
+    }
+
+    .cycle-section {
+      margin-bottom: 50px;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cycle-title-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      padding: 10px 30px;
+      border-radius: 100px;
+      border: 1px solid white;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 25px;
+      color: #1e293b;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .cycle-title-card:hover {
+      transform: translateY(-2px);
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="title-card">
+      <i data-lucide="layout-grid" size="32" style="color: var(--primary)"></i>
+      <h1> INVENTORIES </h1>
+    </div>
+  </header>
+
+  <div class="search-container">
+    <i data-lucide="search" class="search-icon"></i>
+    <input type="text" class="search-input" placeholder="ابحث عن شاشة (جرد، صرف، إضافة)..." id="searchInput">
+  </div>
+
+  <div id="cyclesContainer"></div>
+
+  <script>
+    const screens = [
+      // 1. دورة الإعداد (Setup)
+      { id: "Brands", title: "Brands", icon: "tag", desc: "إدارة العلامات التجارية (Branded House / Sub Brands) وإضافة وتعديل وحذف العلامات مع بيانات الاتصال والوكلاء المفوضين." },
+      { id: "Chart_Of_Item_Type", title: " Chart Of Item Type ", icon: "git-branch", desc: "إدارة التسلسل الهرمي لأنواع الأصناف (Levels)، ربطها بالحسابات المحاسبية ومراكز التكلفة، وعرضها في شجرة تفاعلية." },
+      { id: "Department", title: "Department", icon: "building-2", desc: "إدارة الإدارات والأقسام والمستخدمين وتوزيع الصلاحيات" },
+      { id: "Effective_materials", title: "Effective Materials", icon: "pill", desc: "إدارة المخزون والملفات الرئيسية للمواد الفعالة، ربطها بالفروع، والمشتقات (Branded Items)، مع إمكانية طباعة الملصقات والموافقة على الإضافة." },
+      { id: "Item_Settings", title: " Item Settings", icon: "settings", desc: "إدارة إعدادات الأصناف، الوحدات، الأسعار، والتصنيفات لمراقبة المخزون" },
+      { id: "procedures_settings", title: "Procedures Settings", icon: "settings", desc: "إدارة إعدادات الإجراءات والمراحل" },
+      { id: "rules_of_usage", title: " Rules Of Usage", icon: "shield", desc: "إدارة صلاحيات المستخدمين على ا لمخازن وأنواع الأصناف والإجراءات المخزنية، مع إمكانية منح صلاحيات الجرعة الإضافية." },
+      { id: "System_Variables_Screen", title: "System Variables Screen", icon: "settings", desc: "إدارة إعدادات النظام" },
+      { id: "UOM", title: "UOM", icon: "ruler", desc: "إدارة وحدات القياس المستخدمة في النظام (وحدات الشراء، الاستلام، التخزين، الصرف) مع إمكانية إضافة وتعديل وحذف الوحدات." },
+      { id: "user_activation", title: "User Activation", icon: "user-check", desc: "تفعيل صلاحيات المستخدمين على النظام، تحديد نوع التفعيل وتاريخ انتهاء الصلاحية لضبط الوصول إلى النظام." },
+      { id: "Warehouse_Structure", title: "Warehouse Structure", icon: "warehouse", desc: "إدارة الهيكل الهرمي للمخازن (المخازن، الممرات، الرفوف) مع ربطها بالحسابات المحاسبية ومراكز التكلفة." },
+
+      // 2. دورة التكهين واستبعاد الأصول (Speculation)
+      { id: "AskSpeculation", title: "طلب تكهين أصناف", icon: "trash-2", desc: "بدء إجراءات استبعاد وتكهين الأصناف والأصول التالفة أو الخارجة عن الخدمة." },
+      { id: "ConfermationCheck", title: "تأكيد لجنة التكهين", icon: "check-square", desc: "مطابقة فحص لجنة التكهين للمواد قبل التخلص منها أو بيعها بالمزاد." },
+      { id: "ConfirmReview", title: "تأكيد مراجعة التكهين", icon: "eye", desc: "التدقيق النهائي على مستندات التكهين وعكس القيود المالية ذات الصلة." },
+      { id: "ApprovalSpeculation", title: "اعتماد طلب التكهين", icon: "shield-alert", desc: "اعتماد لجان التكهين والتخلص من العهد والأصول المستهلكة." },
+
+      // 3. دورة المبيعات والمساهمات الخارجية (Sales)
+      { id: "Sale_Order", title: "   طلب مساهمات خارجية مقابل ايراد", icon: "dollar-sign", desc: "دورة بيع المستلزمات الطبية أو تقديم الخدمات لجهات خارجية." },
+      { id: "Sale_Order_Acceptance", title: "  تاكيد طلب مساهمات خارجية مقابل ايراد  ", icon: "inbox", desc: "تلقي ومطابقة طلبات الدعم الطبي الخارجي المقدمة للمرضى المستحقين." },
+      { id: "Sale_Order_Approval", title: "  تاكيد مراجعة مساهمات خارجية مقابل ايرد  ", icon: "users", desc: "مراجعة اجتماعية وإدارية لبحث حالة المريض واستحقاقه للمساهمة الخارجية." },
+      { id: "Sale_Order_Confirmation", title: " اعتماد طلب مساهمات خارجية مقابل ايراد  ", icon: "award", desc: "الاعتماد المالي النهائي وصرف التمويل الخاص بطلبات المساهمة." },
+      { id: "Sale_Order_Treasury", title: "  تاكيد الخزينة مساهمات خارجية مقابل ايراد  ", icon: "landmark", desc: "سداد وتحصيل الفواتير النقدية في الخزينة وتسوية عهد المقبوضات." },
+      { id: "Sale_Order_Receving", title: "تأكيد فحص واستلام مساهمة خارجية مقابل ايراد  ", icon: "download", desc: "استلام وتوثيق الشحنات المدعومة من الجهات الخيرية كإيراد عيني للمستشفى." },
+
+      // 4. القيود المخزنية (Restrictions)
+      { id: "InventoryRestriction", title: "إنشاء القيود المخزنية", icon: "file-spreadsheet", desc: "التوجيه المحاسبي التلقائي للعمليات المخزنية وإصدار قيود اليومية." },
+      { id: "Retrieve_Inventory_Restriction", title: "عكس قيود اليومية المخزنية", icon: "refresh-cw", desc: "إلغاء وعكس القيود المالية المسجلة بالخطأ وتصحيح الحسابات دفترياً." },
+
+      // 5. دورة الفحص والإضافة المخزنية (Addition)
+      { id: "check", title: "إنشاء لجان الفحص", icon: "users", desc: "تشكيل لجان فحص فني متخصصة للمواد والمستلزمات الطبية الموردة." },
+      { id: "Adding_Stock", title: "إذن الإضافة المخزنية", icon: "package-plus", desc: "إدراج التوريدات المقبولة في أرصدة المخازن بعد اجتياز الفحص الفني." },
+      { id: "adding_rev_Stock", title: "تأكيد مراجعة الإضافة المخزنية", icon: "package-plus", desc: "دورة مراجعة وتدقيق مستندات الإضافة والتوريد قبل الاعتماد النهائي." },
+      { id: "adding_Stock_approve", title: "اعتماد الإضافة المخزنية", icon: "package-plus", desc: "الموافقة النهائية من إدارة المخازن لترحيل وتأكيد إضافة الكميات للرصيد." },
+      { id: "Active_Monitor", title: "لوحة المراقبة النشطة", icon: "monitor", desc: "تتبع ومراقبة طلبات الفحص والاستلام وأذون الإضافات المخزنية لحظة بلحظة." },
+
+      // 6. دورة الصرف والعهدة والأدوية (Dispensation)
+      { id: "General_Dispense", title: "الصرف العام والروشتات", icon: "pill", desc: "دورة صرف الأدوية للمرضى الخارجيين والربط المباشر مع ملف المريض الطبي." },
+      { id: "General_Dispense_Sub", title: "تفاصيل الصرف العام", icon: "eye", desc: "لوحة مراجعة الكميات المحددة، الجرعات، والبدائل المتاحة أثناء الصرف." },
+      { id: "General_Dispense_saving", title: "صرف إعادة الاستخدام", icon: "rotate-cw", desc: "إعادة صرف الأدوية والمستلزمات المسترجعة الصالحة لمرضى آخرين لتقليل الهدر." },
+      { id: "General_Dispense_sub_new_barcode", title: "صرف صيدلية بالباركود", icon: "scan-line", desc: "صرف الأدوية والمستلزمات الطبية عبر قراءة باركود الأكياس والعلب المحدث." },
+      { id: "General_Dispense_Sub_new_CartFiller", title: "كارت تعبئة الصيدلية (Cart Filler)", icon: "shopping-bag", desc: "تعبئة عربات توزيع الأدوية اليومية للأقسام الطبية والداخلي." },
+      { id: "General_Dispense_Sub_reprint_new_barcode", title: "إعادة طباعة باركود الصيدلية", icon: "printer", desc: "إعادة توليد وطباعة ملصقات الباركود للجرعات والأدوية المحضرة." },
+      { id: "General_Dispense_Sub_saving", title: "تأكيد حفظ الصرف العام", icon: "save", desc: "حفظ وتوثيق مسودة الصرف ومراجعة الأثر المخزني والمالي النهائي للإذن." },
+      { id: "GeneralDispenseMedicalTourism", title: "صرف صيدلية - سياحة علاجية", icon: "plane-takeoff", desc: "دورة الصرف الطبي لمرضى السياحة العلاجية بالعملة الأجنبية والأسعار المخصصة." },
+      { id: "PrepareForDispensePharm", title: "تجهيز جرعات صيدلية السياحة العلاجية", icon: "package", desc: "إعداد وتحضير طلبيات وجرعات أدوية المرضى الدوليين قبل الصرف والفوترة." },
+      { id: "AdministrationDismissalRequestCustody", title: "صرف عهدة عينية (أصناف)", icon: "briefcase", desc: "إجراءات طلب وصرف العهد الشخصية والأدوات للموظفين بالأقسام المختلفة." },
+      { id: "AdministrationDismissalRequestEmployee", title: "طلب صرف موظف", icon: "users", desc: "إجراءات صرف المستلزمات الطبية أو الإدارية الخاصة بالموظف من المخازن." },
+      { id: "AdministrationDismissalRequesteuipment", title: "صرف تشغيل معدة", icon: "settings", desc: "صرف قطع الغيار والمستهلكات الخاصة بتشغيل وصيانة المعدات والأجهزة الطبية." },
+      { id: "AdministrationDismissalRequestFixedAsset", title: "صرف أصل ثابت", icon: "hard-drive", desc: "دورة تسليم الأصول الثابتة والأجهزة الطبية للأقسام وتوثيق عهدتها." },
+      { id: "AdministrationDismissalRequestPatient", title: "صرف مباشر لمريض", icon: "heart-pulse", desc: "صرف المستلزمات الطبية والأدوية مباشرة على ملف المريض في القسم." },
+      { id: "AdministrationDismissalRequestPatientDose", title: "طلب صرف جرعة مريض (صيدلية)", icon: "pill", desc: "صرف الجرعات الدوائية المحددة للمرضى الداخليين من الصيدلية الإكلينيكية." },
+      { id: "AdministrationDismissalRequestPromotion", title: "طلب تعزيز أرصدة", icon: "trending-up", desc: "دورة طلب دعم وتعزيز المخازن الفرعية والصيدليات بالكميات المطلوبة." },
+      { id: "AdministrationDismissalRequestsPareParts", title: "صرف قطع غيار", icon: "wrench", desc: "صرف قطع الغيار المطلوبة من مخازن الصيانة لإصلاح الأعطال الطارئة." },
+      { id: "ConfirmExchangeRequests", title: "تأكيد طلبات الصرف", icon: "check-circle-2", desc: "مراجعة وتأكيد طلبات الصرف المستودعي الواردة من الأقسام الطبية والإدارية." },
+
+      // 7. دورة الاستبدال (Substitution)
+      { id: "exchange", title: "طلب استبدال أصناف", icon: "repeat", desc: "استبدال الأصناف التالفة بأخرى صالحة من نفس النوع عبر لجنة الاستبدال." },
+      { id: "exchange_confirmation", title: "تأكيد طلب الاستبدال", icon: "check-square", desc: "موافقة أمين المخزن واللجنة الفنية على تسوية الاستبدال وصرف البديل." },
+      { id: "Replacement_Order_Approval", title: "مراجعة طلب الاستبدال", icon: "eye", desc: "التدقيق الفني على جودة الأصناف البديلة وتاريخ صلاحيتها المقترح." },
+      { id: "Replacement_Order_Confirmation", title: "اعتماد نهائي لطلب الاستبدال", icon: "shield-check", desc: "التوقيع والاعتماد الختامي لإجراء الاستبدال وتسوية العهدة بالكامل." },
+      { id: "Procodure_check_del", title: "طلب فحص واستلام توريدات", icon: "check-square", desc: "جدولة عمليات الفحص الفني والكمي للشحنات الواصلة من الموردين." },
+      { id: "check_del_procedure", title: "إجراءات تأكيد الفحص", icon: "shield-x", desc: "مراجعة قرارات الفحص الفني وإلغاء محاضر الاستلام غير المطابقة للمواصفات." },
+      { id: "Dell_order", title: "إجراءات تأكيد الاستلام والإلغاء", icon: "archive-x", desc: "تأكيد إلغاء أو حذف أوامر الاستلام وإعادة الأرصدة لوضعها المسبق." },
+      { id: "Replacement_Add", title: "إضافة طلب استبدال بضاعة", icon: "plus-circle", desc: "بدء طلب استبدال أصناف راكدة أو قريبة الانتهاء بأخرى ذات صلاحية أطول." },
+
+      // 8. دورة الارتجاع للموردين (Returns)
+      { id: "External_return_request", title: "طلب الارتجاع الخارجي للمورد", icon: "external-link", desc: "إجراءات مرتجع بضائع وتوريدات لموردين خارجيين وتسويتها مالياً." },
+      { id: "External_return_request_approve", title: "تأكيد الارتجاع الخارجي", icon: "check-circle", desc: "موافقة إدارة المشتريات على طلب الارتجاع للمورد وبدء تحضير الشحنة." },
+      { id: "External_return_request_approve_check_dell", title: "اعتماد إلغاء الارتجاع الخارجي", icon: "x-circle", desc: "دورة تراجع وإلغاء طلب الارتجاع وتحديث أرصدة المورد المجمدة." },
+      { id: "External_return_request_approve_rev", title: "مراجعة واعتماد الارتجاع الخارجي", icon: "file-check", desc: "التدقيق المالي الأخير على مديونيات المورد وإشعار الدائن (Credit Note)." },
+      { id: "External_return_request_Without_po", title: "ارتجاع خارجي بدون أمر توريد", icon: "package-x", desc: "إرجاع أصناف أو أجهزة لموردين خارج دورة التوريد المعتادة." },
+      { id: "Internal_return_Acceptance", title: "اعتماد الارتجاع الداخلي", icon: "refresh-cw", desc: "اعتماد مرتجع الأدوية والمستلزمات الفائضة من الأقسام العلاجية إلى المخازن." },
+      { id: "Internal_return_request_Previous_years", title: "ارتجاع داخلي من سنوات سابقة", icon: "history", desc: "إجراءات إرجاع عهد أو مستلزمات قديمة تم صرفها في سنوات مالية منتهية." },
+
+      // 9. دورة الجرد والتسوية والاقفال السنوي (Inventory)
+      { id: "Inventory_Balance", title: "أرصدة المخازن بعد الجرد", icon: "scale", desc: "اعتماد الأرصدة الفعلية وتحديث النظام بعد الانتهاء من أعمال مطابقة الجرد." },
+      { id: "Inventory_Cards", title: "بطاقات الجرد الفعلي", icon: "clipboard-list", desc: "توليد وإصدار بطاقات الجرد الميداني للجان لتسجيل كميات المخزون يدوياً." },
+      { id: "Inventory_Random_Sampling", title: "العينات العشوائية للجرد", icon: "git-commit", desc: "اختيار أصناف عشوائية ذات قيمة عالية أو حركة سريعة للتحقق من مطابقتها." },
+      { id: "Inventory_Random_Sampling_Committee", title: "إنشاء لجنة جرد مفاجئ", icon: "users", desc: "تشكيل وتكليف لجان الجرد العشوائي وتحديد فترة صلاحية المحضر." },
+      { id: "Inventory_Random_Sampling_Options", title: "إعدادات عينة الجرد", icon: "sliders", desc: "تحديد معايير اختيار العينات العشوائية (حسب المورد، الفئة، أو معدل الاستهلاك)." },
+      { id: "Inventory_Reconcilement", title: "التسويات الجردية والمالية", icon: "coins", desc: "معالجة فروقات الجرد وحساب أرباح وخسائر تسوية الكميات الزائدة أو العجز." },
+      { id: "Inventory_Year_End_Closing", title: "إقفال المخازن السنوي", icon: "calendar", desc: "تجميد الحركات، مطابقة الأرصدة، وترحيل الأرصدة الافتتاحية للعام المالي الجديد." },
+      { id: "Random_sampling_inventory_approval", title: "اعتماد أمين المخزن للعينة للجرد", icon: "user-check", desc: "تأكيد ومطابقة أمين المستودع للنتائج المحصورة من لجنة الجرد المفاجئ." },
+
+      // 10. التحويلات والخدمات المخزنية الإضافية (Additional)
+      { id: "UsageApproval", title: "تأكيد الاستخدام", icon: "check-circle", desc: "اعتماد صرف الأصناف المخزنية، إدخال قيم (U, R, C) وإنشاء إذن الصرف وتحديث الأرصدة تلقائياً." },
+      { id: "Min_Max", title: "الحدود الدنيا والقصوى للأصناف", icon: "trending-down", desc: "ضبط مستويات الأمان للأرصدة وتلقي إشعارات تلقائية عند الاقتراب من حد الطلب." },
+      { id: "PharmSavingRquest", title: "طلب توفير نواقص الصيدلية", icon: "sparkles", desc: "تسجيل النواقص الطبية الحادة وطلب توفيرها بشكل طارئ لإنقاذ حياة المرضى." },
+      { id: "PharmSavingRquest_approve", title: "تأكيد مراجعة طلب توفير نواقص", icon: "check-circle", desc: "مراجعة البدائل المتاحة في المستشفى واعتماد شراء النواقص غير المتوفرة." },
+      { id: "PharmSavingRquest_confirmation", title: "اعتماد طلب توفير نواقص", icon: "file-check", desc: "اعتماد أمر التوفير النهائي وإحالته لقسم المشتريات للتعاقد الفوري." },
+      { id: "reprintBarcode", title: "إعادة طباعة باركود صنف", icon: "printer", desc: "إعادة طباعة الباقات والعلب ذات الباركود التالف لتسهيل القراءة بالماسح." },
+      { id: "Request_for_reuse", title: "طلب إعادة استخدام مستلزمات", icon: "repeat", desc: "توجيه المستلزمات القابلة للتعقيم وإعادة الاستخدام لدورة الاستفادة منها مجدداً." },
+      { id: "requset_saving", title: "تأكيد طلب إعادة الاستخدام", icon: "check-circle", desc: "فحص وموافقة مكافحة العدوى واللجنة الطبية على إعادة تدوير واستخدام المواد." },
+      { id: "transfer_exchange", title: "التحويل المخزني الفني", icon: "truck", desc: "إتمام عمليات شحن ونقل المنتجات طبياً ومخزنياً بين الفروع." },
+      { id: "transfer_from_other", title: "التحويل من مخزن آخر", icon: "download-cloud", desc: "استلام وتفريغ طلبات التحويل القادمة من الفروع والمستودعات الأخرى." },
+      { id: "UsageApproval_Confirm", title: "تأكيد واعتماد الاستخدام", icon: "check-square", desc: "الاعتماد الطبي النهائي لكميات المواد المستهلكة في العمليات الجراحية والعلاج." },
+
+      // 11.  Reporting 
+      { id: "Discharged_to_patient_StockBack_details", title: "تقرير الاصناف المنصرفة و المرتجعة على المرضى _ أدوية", icon: "file-chart", desc: "تقرير تفصيلي للأصناف المنصرفة والمرتجعة على المرضى مع إمكانية البحث حسب الفترة، المريض، الصنف، وجهة الدعم، وتصدير النتائج." },
+      { id: "Reprint_Movements_Reports", title: "إعادة طباعة الحركات", icon: "print", desc: "إعادة طباعة مستندات الحركات المخزنية (صرف، استلام، تحويل، طلبات) مع إمكانية البحث حسب المخزن، نوع الحركة، الفترة، الصنف، المورد." },
+      { id: "Item_Inquiry", title: "استعلام عن صنف", icon: "search", desc: "استعلام عن تفاصيل الأصناف المخزنية (الرصيد، الحركات، الدفعات، وحدات القياس، والإعدادات) مع عرض تقرير شامل." },
+      { id: "Expired_Items", title: "تقرير الأصناف منتهية الصلاحية", icon: "calendar-times", desc: "تقرير الأصناف منتهية الصلاحية أو التي تقترب من انتهاء الصلاحية مع إمكانية التصفية حسب المخزن وتاريخ الصلاحية." },
+      { id: "Balance_Report", title: "تقرير أرصدة المخزون", icon: "balance-scale", desc: "تقرير أرصدة المخزون مع إمكانية التصفية حسب المخزن، نوع الصنف، الصنف، التاريخ، وإظهار تفاصيل الدفعات." },
+      { id: "Balance_Report_Live_Balance", title: "تقرير أرصدة المخزون الحي", icon: "chart-line", desc: "تقرير أرصدة المخزون الحي (Live Balance) مع إمكانية التصفية حسب المخزن، الصنف، المادة الفعالة، وإظهار تفاصيل الدفعات." },
+      { id: "Items_Near_EXP", title: "تقرير الأصناف قريبة الانتهاء", icon: "hourglass-half", desc: "تقرير الأصناف التي تقترب من تاريخ انتهاء الصلاحية مع إمكانية تحديد المدة بالأيام والتصفية حسب المخزن." },
+      { id: "Inv_Settlement_Report", "title": "تقرير التسويات", icon: "exchange-alt", desc: "تقرير عمليات التسوية المخزنية (تحويلات بين المخازن، تسويات اللجان، والتسويات الزمنية) مع إمكانية التصفية حسب المخزن، اللجنة، أو الفترة الزمنية." },
+      { id: "Rep_Savings_reports", title: "تقرير التوفير", icon: "piggy-bank", desc: "تقرير التوفير (الوفر) للأصناف المخزنية مع إمكانية التصفية حسب نوع الصنف (أدوية/مستلزمات)، المخزن، والفترة الزمنية." },
+      { id: "General_Movements", title: "تقرير الحركات العامة", icon: "exchange-alt", desc: "تقرير شامل لجميع حركات المخزون (دخول، خروج، تحويلات) مع إمكانية التصفية حسب المخزن، نوع الحركة، نوع الصنف، نوع الصرف، الصنف، جهة الدعم، والمورد." },
+      { id: "Stagnant_batchno_report", title: "تقرير الرواكد على مستوى الدفعة", icon: "box", desc: "تقرير الأصناف الراكدة على مستوى الدفعة (التي لم يحدث لها حركة خلال فترة محددة) مع إمكانية تحديد المدة بالأيام." },
+      { id: "Stagnant_items_report", title: "تقرير الرواكد على مستوى الصنف", icon: "cube", desc: "تقرير الأصناف الراكدة على مستوى الصنف (إجمالي جميع الدفعات) التي لم يحدث لها حركة خلال فترة محددة مع إمكانية تحديد المدة بالأيام." },
+      { id: "Stagnant_EffectiveMaterial_report", title: "تقرير الرواكد على مستوى المادة الفعالة", icon: "flask", desc: "تقرير المواد الفعالة الراكدة المرتبطة بأصناف لم يحدث لها حركة خلال فترة محددة مع إمكانية تحديد المدة بالأيام." },
+      { id: "Stagnant_stores_report", title: "تقرير الرواكد على مستوى المخازن", icon: "warehouse", desc: "تقرير المخازن الراكدة التي تحتوي على أصناف لم يحدث لها حركة خلال فترة محددة مع إمكانية تحديد المدة بالأيام." },
+      { id: "Stagnant_type_report", title: "تقرير الرواكد على مستوى نوع الصنف", icon: "tags", desc: "تقرير أنواع الأصناف الراكدة التي تحتوي على أصناف لم يحدث لها حركة خلال فترة محددة مع إمكانية تحديد المدة بالأيام." },
+      { id: "Rbt_Stock_increase_report", title: "تقرير الزيادة في المخزون", icon: "arrow-up", desc: "تقرير الزيادة في أرصدة المخزون خلال فترة محددة مع إمكانية تحديد التاريخ وعرض تفاصيل الزيادات." },
+      { id: "Disbursement_report", title: "تقرير الصرف", icon: "arrow-down", desc: "تقرير الأصناف المنصرفة من المخزون خلال فترة محددة مع إمكانية التصفية حسب المخزن، الصنف، ونوع التقرير." },
+      { id: "Random_sample_report", title: "تقرير العينة العشوائية", icon: "random", desc: "تقرير عينات الجرد العشوائية مع إمكانية البحث حسب التاريخ أو المخزن، وعرض تفاصيل العينة والأصناف المرتبطة بها." },
+      { id: "ReturnPharmacyPatient", title: "تقرير الأصناف المرتجعة على المرضى", icon: "return", desc: "تقرير الأصناف المرتجعة من المرضى مع إمكانية البحث حسب الفترة الزمنية، السنة المالية، أو رقم ملف المريض." },
+      { id: "DischargedToPatient", title: "تقرير المنصرف على المرضى", icon: "prescription", desc: "تقرير الأصناف المنصرفة للمرضى مع إمكانية البحث حسب الفترة الزمنية، السنة المالية، رقم المريض، الصنف، المخزن، ونوع المريض." },
+      { id: "Discharged_to_patient_medical_supplies", title: "تقرير المنصرف على المرضى - مستلزمات طبية", icon: "bandaid", desc: "تقرير المستلزمات الطبية المنصرفة للمرضى مع إمكانية البحث حسب الفترة الزمنية، السنة المالية، رقم المريض، كود الصنف، جهة الدعم، ونوع المريض (مع احتساب العمر)." },
+      { id: "chexkValueMatching1", title: "تقرير مراجعة تطابق القيمة بين الوحدات", icon: "calculator", desc: "تقرير مراجعة تطابق القيم بين وحدات القياس المختلفة (الشراء، الاستلام، التخزين، الصرف) للتأكد من صحة التحويلات المحاسبية." },
+      { id: "Item_cost_report", title: "تقرير تكلفة الأصناف", icon: "coins", desc: "تقرير تكلفة الأصناف المخزنية مع إمكانية عرض تكلفة جميع الأصناف، صنف محدد، أو أصناف ضمن نوع صنف معين." },
+      { id: "Supplier_supply_report", title: "تقرير توريدات الموردين", icon: "truck", desc: "تقرير توريدات الموردين وأوامر الشراء مع إمكانية البحث حسب المورد، الفترة الزمنية، السنة المالية، ونطاق أوامر التوريد." },
+      { id: "Store_balance", title: "تقرير رصيد المخزن", icon: "warehouse", desc: "تقرير أرصدة المخازن مع إمكانية عرض الأرصدة بالكمية أو القيمة المالية لمخزن محدد." },
+      { id: "Store_Card", title: "تقرير كارت المخزن", icon: "card", desc: "تقرير كارت المخزن (بطاقة المخزن) لعرض جميع حركات الدخول والخروج على المخزن مع إمكانية التصفية حسب الفترة الزمنية وإظهار تفاصيل الدفعات." },
+      { id: "ConsumptionQuantityAverage", title: "تقرير متوسط الاستهلاك", icon: "chart-line", desc: "تقرير متوسط كميات الاستهلاك اليومي للأصناف مع إمكانية التصفية حسب المخزن، نوع الصنف، أو صنف محدد." },
+      { id: "consumption_rate", title: "تقرير متوسط الاستهلاك - خلال فتره", icon: "chart-line", desc: "تقرير متوسط كميات الاستهلاك اليومي للأصناف خلال فترة زمنية محددة مع إمكانية التصفية حسب المخزن، نوع الصنف، أو صنف محدد." },
+      { id: "Review_inventory_restriction", title: "تقرير مراجعة قيود المخزون", icon: "book", desc: "تقرير مراجعة القيود المحاسبية للمخزون مع إمكانية البحث حسب الفترة الزمنية، المصدر، ونوع مستند القيد، وعرض تفاصيل القيد للطباعة." },
+      { id: "Receipt_monitoring", title: "تقرير مراقبة الاستلامات", icon: "clipboard-list", desc: "تقرير مراقبة عمليات استلام البضائع من الموردين مع إمكانية البحث حسب رقم أمر التوريد، الفترة الزمنية، أو الصنف." },
+      { id: "Stagnant_impact", title: "تقرير مراقبة التأثير على وضع الركود", icon: "chart-pie", desc: "تقرير تحليل تأثير الأصناف الراكدة على المخزون من حيث القيمة والنسبة المئوية مع إمكانية تحديد فترة الركود بالأيام." },
+      { id: "TransferBetweenStores", title: "تقرير مراقبة التحويلات بين المخازن", icon: "exchange-alt", desc: "تقرير مراقبة حركة التحويلات بين المخازن مع إمكانية البحث حسب الفترة الزمنية، السنة المالية، المخزن المصدر، المخزن الوجهة، أو الصنف." },
+      { id: "Warehouse_transfer_monitoring", title: "تقرير مراقبة حركة التحويلات بين المخازن", icon: "arrows-alt-h", desc: "تقرير مراقبة حركة التحويلات والتعزيز بين المخازن مع إمكانية البحث حسب التاريخ، مستند طلب التعزيز، المخزن المحول منه، أو المخزن المحول إليه." },
+      { id: "Rpt_Inventory_equation_items_and_type", title: "تقرير معادلة المخزون", icon: "calculator", desc: "تقرير معادلة المخزون (رصيد أول المدة + الوارد = المنصرف + رصيد آخر المدة) للأصناف وأنواع الأصناف مع إمكانية اختيار شكل العرض." },
+      { id: "ItemsInExamination", title: "تقرير موقف الأصناف التى بالفحص", icon: "clipboard-search", desc: "تقرير متابعة الأصناف الموجودة في مرحلة الفحص والاستلام مع إمكانية التصفية حسب نوع الصنف، الصنف، المورد، وحالة العملية (فحص، استلام، إضافة، مراجعة)." },
+      { id: "Effective_Material_Balance", title: "تقرير موقف المادة الفعالة", icon: "flask", desc: "تقرير أرصدة المواد الفعالة والأصناف المرتبطة بها في المخازن مع إمكانية التصفية حسب المخزن والمادة الفعالة وتاريخ التقرير." },
+      { id: "Reorder_Point_Report_SCR", title: "تقرير نقطة إعادة الطلب", icon: "chart-line", desc: "تقرير الأصناف التي وصلت إلى نقطة إعادة الطلب (Reorder Point) مع إمكانية التصفية حسب المخزن، نوع الصنف، أو صنف محدد." },
+      { id: "ItemCard", title: "كارت الصنف الموحد", icon: "card", desc: "كارت حركة الصنف الموحد (المدين والدائن والرصيد) مع إمكانية اختيار الفترة الزمنية، السنة المالية، وشكل التقرير (4 أشكال مختلفة)." }
+
+    ];
+
+
+    const cycles = {
+      setup: { title: " الإعداد", icon: "settings", color: "#f59e0b" },
+      speculation: { title: " التكهين واستبعاد الأصول", icon: "trash-2", color: "#8b5cf6" },
+      substitution: { title: "الاستبدال   ", icon: "settings", color: "#ef4444" },
+      restrictions: { title: "القيود المخزنية", icon: "settings", color: "#001c52ff" },
+      sales: { title: "  المبيعات والمساهمات الخارجية مقابل ايراد ", icon: "coins", color: "#f59e0b" },
+      addition: { title: " الفحص والإضافة المخزنية", icon: "package-plus", color: "#4f46e5" },
+      dispensation: { title: " الصرف والعهدة والأدوية", icon: "pill", color: "#10b981" },
+      returns: { title: " الارتجاع  للموردين", icon: "rotate-ccw", color: "#ef4444" },
+      inventory: { title: " الجرد والتسوية والاقفال السنوي", icon: "scale", color: "#06b6d4" },
+      additional: { title: "التحويلات والخدمات المخزنية الإضافية", icon: "settings", color: "#64748b" },
+      reporting: { title: "التقارير ", icon: "book", color: "#64748b" },
+
+    };
+
+    const screenCycleMap = {
+      // 1. Addition
+      "Active_Monitor": "addition",
+      "check": "addition",
+      "Adding_Stock": "addition",
+      "adding_rev_Stock": "addition",
+      "adding_Stock_approve": "addition",
+
+
+      // 2. Dispensation
+      "General_Dispense": "dispensation",
+      "General_Dispense_Sub": "dispensation",
+      "General_Dispense_saving": "dispensation",
+      "General_Dispense_sub_new_barcode": "dispensation",
+      "General_Dispense_Sub_new_CartFiller": "dispensation",
+      "General_Dispense_Sub_reprint_new_barcode": "dispensation",
+      "General_Dispense_Sub_saving": "dispensation",
+      "GeneralDispenseMedicalTourism": "dispensation",
+      "PrepareForDispensePharm": "dispensation",
+      "AdministrationDismissalRequestCustody": "dispensation",
+      "AdministrationDismissalRequestEmployee": "dispensation",
+      "AdministrationDismissalRequesteuipment": "dispensation",
+      "AdministrationDismissalRequestFixedAsset": "dispensation",
+      "AdministrationDismissalRequestPatient": "dispensation",
+      "AdministrationDismissalRequestPatientDose": "dispensation",
+      "AdministrationDismissalRequestPromotion": "dispensation",
+      "AdministrationDismissalRequestsPareParts": "dispensation",
+      "ConfirmExchangeRequests": "dispensation",
+
+      // 3. Sales
+      "Sale_Order": "sales",
+      "Sale_Order_Acceptance": "sales",
+      "Sale_Order_Approval": "sales",
+      "Sale_Order_Confirmation": "sales",
+      "Sale_Order_Treasury": "sales",
+      "Sale_Order_Receving": "sales",
+
+      // 4. Returns
+      "External_return_request": "returns",
+      "External_return_request_approve": "returns",
+      "External_return_request_approve_check_dell": "returns",
+      "External_return_request_approve_rev": "returns",
+      "External_return_request_Without_po": "returns",
+      "Internal_return_Acceptance": "returns",
+      "Internal_return_request_Previous_years": "returns",
+
+      // substitution
+      "exchange": "substitution",
+      "exchange_confirmation": "substitution",
+      "Replacement_Order_Approval": "substitution",
+      "Replacement_Order_Confirmation": "substitution",
+      "Procodure_check_del": "substitution",
+      "check_del_procedure": "substitution",
+      "Dell_order": "substitution",
+      "Replacement_Add": "substitution",
+
+      // 5. Inventory
+      "Inventory_Cards": "inventory",
+      "Inventory_Random_Sampling": "inventory",
+      "Inventory_Random_Sampling_Committee": "inventory",
+      "Inventory_Random_Sampling_Options": "inventory",
+      "Random_sampling_inventory_approval": "inventory",
+      "Inventory_Balance": "inventory",
+      "Inventory_Reconcilement": "inventory",
+      "Inventory_Year_End_Closing": "inventory",
+
+      // 6. Speculation
+      "AskSpeculation": "speculation",
+      "ConfermationCheck": "speculation",
+      "ConfirmReview": "speculation",
+      "ApprovalSpeculation": "speculation",
+
+      // 7. Restrictions
+      "InventoryRestriction": "restrictions",
+      "Retrieve_Inventory_Restriction": "restrictions",
+
+      // 8. Setup
+      "Brands": "setup",
+      "Chart_Of_Item_Type": "setup",
+      "Department": "setup",
+      "Effective_materials": "setup",
+      "Item_Settings": "setup",
+      "procedures_settings": "setup",
+      "rules_of_usage": "setup",
+      "System_Variables_Screen": "setup",
+      "UOM": "setup",
+      "user_activation": "setup",
+      "Warehouse_Structure": "setup",
+
+      // 9. Reporting
+      "Discharged_to_patient_StockBack_details": "reporting",
+      "Reprint_Movements_Reports": "reporting",
+      "Item_Inquiry": "reporting",
+      "Balance_Report": "reporting",
+      "balance_report_live_balence": "reporting",
+      "Items_Near_EXP": "reporting",
+      "Inv_Settlement_Report": "reporting",
+      "Rep_Savings_reports": "reporting",
+      "General_Movements": "reporting",
+      "Stagnant_batchno_report": "reporting",
+      "Stagnant_items_report": "reporting",
+      "Stagnant_EffectiveMaterial_report": "reporting",
+      "Stagnant_stores_report": "reporting",
+      "Stagnant_type_report": "reporting",
+      "Rbt_Stock_increase_report": "reporting",
+      "Disbursement_report": "reporting",
+      "Random_sample_report": "reporting",
+      "ReturnPharmacyPatient": "reporting",
+      "Discharged_to_patient_medical_supplies": "reporting",
+      "chexkValueMatching1": "reporting",
+      "Item_cost_report": "reporting",
+      "Supplier_supply_report": "reporting",
+      "Store_balance": "reporting",
+      "Store_Card": "reporting",
+      "ConsumptionQuantityAverage": "reporting",
+      "consumption_rate": "reporting",
+      "Review_inventory_restriction": "reporting",
+      "Receipt_monitoring": "reporting",
+      "Stagnant_impact": "reporting",
+      "TransferBetweenStores": "reporting",
+      "Warehouse_transfer_monitoring": "reporting",
+      "Rpt_Inventory_equation_items_and_type": "reporting",
+      "ItemsInExamination": "reporting",
+      "Effective_Material_Balance": "reporting",
+      "Reorder_Point_Report_SCR": "reporting",
+      "ItemCard": "reporting",
+
+
+
+
+
+
+
+
+    };
+
+    function renderScreens(filter = "") {
+      const container = document.getElementById('cyclesContainer');
+      container.innerHTML = '';
+
+      // Initialize groups
+      const groups = {};
+      Object.keys(cycles).forEach(cId => {
+        groups[cId] = [];
+      });
+
+      // Filter and assign screens
+      screens.filter(s => s.title.includes(filter) || s.desc.includes(filter)).forEach(s => {
+        const cycleId = screenCycleMap[s.id] || 'additional';
+        groups[cycleId].push(s);
+      });
+
+      // Render each group
+      Object.keys(cycles).forEach(cId => {
+        const groupScreens = groups[cId];
+        if (groupScreens.length === 0) return;
+
+        const cycleInfo = cycles[cId];
+
+        const section = document.createElement('section');
+        section.className = 'cycle-section';
+
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'cycle-title-card';
+        headerDiv.style.borderRight = `5px solid ${cycleInfo.color}`;
+        headerDiv.innerHTML = `
+          <i data-lucide="${cycleInfo.icon}" style="color: ${cycleInfo.color}; width: 22px; height: 22px;"></i>
+          <h2 style="font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            ${cycleInfo.title}
+            <span style="font-size: 0.8rem; background: #eef2ff; color: var(--primary); padding: 2px 10px; border-radius: 50px; font-weight: 600;">
+              ${groupScreens.length} شاشات
+            </span>
+          </h2>
+        `;
+        section.appendChild(headerDiv);
+
+        const gridDiv = document.createElement('div');
+        gridDiv.className = 'grid';
+
+        groupScreens.forEach(s => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.onclick = () => window.location.href = 'viewer.html?screen=' + s.id;
+          card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center">
+              <div class="icon-box"><i data-lucide="${s.icon}"></i></div>
+              <span class="badge">تفاعلي</span>
+            </div>
+            <h3 style="font-size: 1.1rem">${s.title}</h3>
+            <p style="font-size: 0.8rem; color: #64748b; line-height:1.5">${s.desc}</p>
+            <div style="margin-top:auto; font-size: 0.75rem; color: var(--primary); font-weight:700"> Open ←</div>
+          `;
+          gridDiv.appendChild(card);
+        });
+
+        section.appendChild(gridDiv);
+        container.appendChild(section);
+      });
+
+      lucide.createIcons();
+    }
+
+    document.getElementById('searchInput').oninput = (e) => renderScreens(e.target.value);
+    renderScreens();
+  </script>
+</body>
+
+</html>
