@@ -100,26 +100,24 @@ let playInterval = null;
 let isPlaying = false;
 
 function playAllSteps() {
-  // إذا كان التشغيل قيد التنفيذ، نوقف
   if (isPlaying) {
     stopPlayback();
     return;
   }
 
-  // إذا كنا في البداية أو انتهينا من جميع الخطوات
+
   if (currentIndex === -1 || currentIndex >= workflowData.length - 1) {
     resetWorkflow();
     currentIndex = -1;
-    nextStep(); // نبدأ أول خطوة فوراً
+    nextStep();
   }
 
-  // نبدأ التشغيل التلقائي
   isPlaying = true;
   playInterval = setInterval(() => {
     if (currentIndex < workflowData.length - 1) {
       nextStep();
     } else {
-      // انتهى العرض
+
       if (playInterval) {
         clearInterval(playInterval);
         playInterval = null;
