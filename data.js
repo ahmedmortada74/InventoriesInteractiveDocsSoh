@@ -9363,7 +9363,7 @@
   "System_Variables_Screen": {
     "title": "شاشة متغيرات النظام | System Variables Screen",
     "primary": "#4f46e5",
-    "image": "./Image/System_Variables_Screen.png",
+    "image": "./Image/System_variables_screen.png",
     "steps": [
       {
         "id": "loadPage",
