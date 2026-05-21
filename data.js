@@ -8759,7 +8759,11 @@
   "procedures_settings": {
     "title": "شاشة إعدادات الإجراءات | Procedures Settings",
     "primary": "#4f46e5",
+<<<<<<< HEAD
     "image": "./Image/procedures_settings.png",
+=======
+    "image": "./Image/Procedures_Settings.png",
+>>>>>>> 1819c14168b19e7d91bc782b8f3469dbc64524db
     "steps": [
       {
         "id": "loadPage",
