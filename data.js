@@ -3,7 +3,7 @@
   "Active_Monitor": {
     "title": "لوحه تتبع طلبات الفحص والاستلام",
     "primary": "#4f46e5",
-    "image": "./image/Active_Monitor.png",
+    "image": "./Image/Active_Monitor.png",
     "steps": [
       {
         title: "1. عرض الإدارة والمسؤول",
@@ -192,7 +192,7 @@
   "adding_rev_Stock": {
     "title": "تاكيد مراجعة الاضافة",
     "primary": "#0369a1",
-    "image": "./image/adding_rev_Stock.png",
+    "image": "./Image/adding_rev_Stock.png",
     "steps": [
       {
         title: "1. عرض الإدارة والمسؤول",
@@ -482,7 +482,7 @@
   "adding_Stock_approve": {
     "title": "اعتماد الاضافة",
     "primary": "#059669",
-    "image": "./image/adding_Stock_approve.png",
+    "image": "./Image/adding_Stock_approve.png",
     "steps": [
       {
         title: "1. عرض الإدارة والمسؤول",
@@ -2502,7 +2502,7 @@
   "check_del_procedure": {
     "title": "اجراءات تاكيد الفحص",
     "primary": "#ef4444",
-    "image": "./image/check_del_procedure.png",
+    "image": "./Image/check_del_procedure.png",
     "steps": [
       {
         title: "1. عرض الإدارة والمسؤول",
@@ -7547,7 +7547,7 @@
   "UsageApproval": {
     "title": "تأكيد الاستخدام  ",
     "primary": "#4f46e5",
-    "image": "./image/UsageApproval.png",
+    "image": "./Image/UsageApproval.png",
     "steps": [
       {
         "id": "selectStoreType",
@@ -7717,7 +7717,7 @@
   "Brands": {
     "title": "شاشة إدارة العلامات التجارية (Brands)",
     "primary": "#4f46e5",
-    "image": "./image/Brands.png",
+    "image": "./Image/Brands.png",
     "steps": [
       {
         "title": "1. تحميل الصفحة وعرض البيانات",
@@ -7870,7 +7870,7 @@
   "Chart_Of_Item_Type": {
     "title": "شجرة أنواع الأصناف | Chart Of Item Type",
     "primary": "#4f46e5",
-    "image": "./image/chart_of_item_type.png",
+    "image": "./Image/chart_of_item_type.png",
     "steps": [
       {
         "id": "loadPage",
@@ -8064,7 +8064,7 @@
   "Department": {
     "title": "شاشة إدارة الإدارات والأقسام",
     "primary": "#4f46e5",
-    "image": "./image/Department.png",
+    "image": "./Image/Department.png",
     "steps": [
       {
         "id": "selectDataSource",
@@ -8282,7 +8282,7 @@
   "Effective_materials": {
     "title": "شاشة المواد الفعالة | Effective Materials",
     "primary": "#4f46e5",
-    "image": "./image/Effective_materials.png",
+    "image": "./Image/Effective_materials.png",
     "steps": [
       {
         "id": "loadPage",
@@ -8458,7 +8458,7 @@
   "Item_Settings": {
     "title": "شاشة إعدادات الأصناف | Item Settings",
     "primary": "#4f46e5",
-    "image": "./image/Item_Settings.png",
+    "image": "./Image/Item_Settings.png",
     "steps": [
       {
         "id": "loadPage",
@@ -8759,7 +8759,7 @@
   "procedures_settings": {
     "title": "شاشة إعدادات الإجراءات | Procedures Settings",
     "primary": "#4f46e5",
-    "image": "./image/Procedures_Settings.png",
+    "image": "./Image/Procedures_Settings.png",
     "steps": [
       {
         "id": "loadPage",
@@ -9093,7 +9093,7 @@
   "rules_of_usage": {
     "title": "شاشة قواعد الاستخدام | Rules of Usage",
     "primary": "#4f46e5",
-    "image": "./image/rules_of_usage.png",
+    "image": "./Image/rules_of_usage.png",
     "steps": [
       {
         "id": "loadPage",
@@ -9363,7 +9363,7 @@
   "System_Variables_Screen": {
     "title": "شاشة متغيرات النظام | System Variables Screen",
     "primary": "#4f46e5",
-    "image": "./image/System_Variables_Screen.png",
+    "image": "./Image/System_Variables_Screen.png",
     "steps": [
       {
         "id": "loadPage",
@@ -9590,7 +9590,7 @@
   "UOM": {
     "title": "شاشة وحدات القياس | Units of Measurement",
     "primary": "#4f46e5",
-    "image": "./image/UOM.png",
+    "image": "./Image/UOM.png",
     "steps": [
       {
         "id": "loadPage",
@@ -9804,7 +9804,7 @@
   "user_activation": {
     "title": "شاشة تفعيل المستخدمين | User Activation",
     "primary": "#4f46e5",
-    "image": "./image/user_activation.png",
+    "image": "./Image/user_activation.png",
     "steps": [
       {
         "id": "loadPage",
@@ -9913,7 +9913,7 @@
   "Warehouse_Structure": {
     "title": "شاشة هيكل المخازن | Warehouse Structure",
     "primary": "#4f46e5",
-    "image": "./image/Warehouse_Structure.png",
+    "image": "./Image/Warehouse_Structure.png",
     "steps": [
       {
         "id": "loadPage",
@@ -10225,7 +10225,7 @@
   "Discharged_to_patient_StockBack_details": {
     "title": "تقرير الأصناف المنصرفة والمرتجعة على المرضى",
     "primary": "#4f46e5",
-    "image": "./image/Discharged_to_patient_StockBack_details.png",
+    "image": "./Image/Discharged_to_patient_StockBack_details.png",
     "steps": [
       {
         "id": "loadPage",
@@ -10422,7 +10422,7 @@
   "Reprint_Movements_Reports": {
     "title": "إعادة طباعة الحركات | Reprint Movements Reports",
     "primary": "#3b82f6",
-    "image": "./image/Reprint_Movements_Reports.png",
+    "image": "./Image/Reprint_Movements_Reports.png",
     "steps": [
       {
         "id": "loadPage",
@@ -10623,7 +10623,7 @@
   "Item_Inquiry": {
     "title": "استعلام عن صنف | Item Inquiry",
     "primary": "#10b981",
-    "image": "./image/Item_Inquiry.png",
+    "image": "./Image/Item_Inquiry.png",
     "steps": [
       {
         "id": "loadPage",
@@ -10706,7 +10706,7 @@
   "Expired_Items": {
     "title": "تقرير الأصناف منتهية الصلاحية | Expired Items Report",
     "primary": "#ef4444",
-    "image": "./image/Expired_Items.png",
+    "image": "./Image/Expired_Items.png",
     "steps": [
       {
         "id": "loadPage",
@@ -10830,7 +10830,7 @@
   "Balance_Report": {
     "title": "تقرير أرصدة المخزون | Balance Report",
     "primary": "#8b5cf6",
-    "image": "./image/Balance_Report.png",
+    "image": "./Image/Balance_Report.png",
     "steps": [
       {
         "id": "loadPage",
@@ -10995,7 +10995,7 @@
   "Balance_Report_Live_Balance": {
     "title": "تقرير أرصدة المخزون الحي | Live Balance Report",
     "primary": "#06b6d4",
-    "image": "./image/Balance_Report_Live_Balance.png",
+    "image": "./Image/Balance_Report_Live_Balance.png",
     "steps": [
       {
         "id": "loadPage",
@@ -11166,7 +11166,7 @@
   "Items_Near_EXP": {
     "title": "تقرير الأصناف قريبة الانتهاء | Items Near Expiry Report",
     "primary": "#f59e0b",
-    "image": "./image/Items_Near_EXP.png",
+    "image": "./Image/Items_Near_EXP.png",
     "steps": [
       {
         "id": "loadPage",
@@ -11316,7 +11316,7 @@
   "Inv_Settlement_Report": {
     "title": "تقرير التسويات | Inventory Settlement Report",
     "primary": "#8b5cf6",
-    "image": "./image/Inv_Settlement_Report.png",
+    "image": "./Image/Inv_Settlement_Report.png",
     "steps": [
       {
         "id": "loadPage",
@@ -11483,7 +11483,7 @@
   "Rep_Savings_reports": {
     "title": "تقرير التوفير | Savings Report",
     "primary": "#10b981",
-    "image": "./image/Rep_Savings_reports.png",
+    "image": "./Image/Rep_Savings_reports.png",
     "steps": [
       {
         "id": "loadPage",
@@ -11617,7 +11617,7 @@
   "General_Movements": {
     "title": "تقرير الحركات العامة | General Movements Report",
     "primary": "#3b82f6",
-    "image": "./image/General_Movements.png",
+    "image": "./Image/General_Movements.png",
     "steps": [
       {
         "id": "loadPage",
@@ -11835,7 +11835,7 @@
   "Stagnant_batchno_report": {
     "title": "تقرير الرواكد على مستوى الدفعة | Stagnant Batch Report",
     "primary": "#ef4444",
-    "image": "./image/Stagnant_batchno_report.png",
+    "image": "./Image/Stagnant_batchno_report.png",
     "steps": [
       {
         "id": "loadPage",
@@ -11942,7 +11942,7 @@
   "Stagnant_items_report": {
     "title": "تقرير الرواكد على مستوى الصنف",
     "primary": "#f97316",
-    "image": "./image/Stagnant_items_report.png",
+    "image": "./Image/Stagnant_items_report.png",
     "steps": [
       {
         "id": "loadPage",
@@ -12057,7 +12057,7 @@
   "Stagnant_EffectiveMaterial_report": {
     "title": "تقرير الرواكد على مستوى المادة الفعالة",
     "primary": "#8b5cf6",
-    "image": "./image/Stagnant_EffectiveMaterial_report.png",
+    "image": "./Image/Stagnant_EffectiveMaterial_report.png",
     "steps": [
       {
         "id": "loadPage",
@@ -12172,7 +12172,7 @@
   "Stagnant_stores_report": {
     "title": "تقرير الرواكد على مستوى المخازن",
     "primary": "#06b6d4",
-    "image": "./image/Stagnant_stores_report.png",
+    "image": "./Image/Stagnant_stores_report.png",
     "steps": [
       {
         "id": "loadPage",
@@ -12287,7 +12287,7 @@
   "Stagnant_type_report": {
     title: "تقرير الرواكد على مستوى نوع الصنف",
     primary: "#a855f7",
-    image: "./image/Stagnant_type_report.png",
+    image: "./Image/Stagnant_type_report.png",
     steps: [
       {
         id: "loadPage",
@@ -12402,7 +12402,7 @@
   "Rbt_Stock_increase_report": {
     title: "تقرير الزيادة في المخزون",
     primary: "#10b981",
-    image: "./image/Rbt_Stock_increase_report.png",
+    image: "./Image/Rbt_Stock_increase_report.png",
     steps: [
       {
         id: "loadPage",
@@ -12467,7 +12467,7 @@
   "Disbursement_report": {
     title: "تقرير الصرف",
     primary: "#ef4444",
-    image: "./image/Disbursement_report.png",
+    image: "./Image/Disbursement_report.png",
     steps: [
       {
         id: "loadPage",
@@ -12594,7 +12594,7 @@
   "Random_sample_report": {
     title: "تقرير العينة العشوائية",
     primary: "#8b5cf6",
-    image: "./image/Random_sample_report.png",
+    image: "./Image/Random_sample_report.png",
     steps: [
       {
         id: "loadPage",
@@ -12719,7 +12719,7 @@
   "ReturnPharmacyPatient": {
     title: "تقرير الأصناف المرتجعة على المرضى",
     primary: "#f97316",
-    image: "./image/ReturnPharmacyPatient.png",
+    image: "./Image/ReturnPharmacyPatient.png",
     steps: [
       {
         id: "loadPage",
@@ -12829,7 +12829,7 @@
   "DischargedToPatient": {
     title: "تقرير المنصرف على المرضى",
     primary: "#3b82f6",
-    image: "./image/DischargedToPatient.png",
+    image: "./Image/DischargedToPatient.png",
     steps: [
       {
         id: "loadPage",
@@ -12988,7 +12988,7 @@
   "Discharged_to_patient_medical_supplies": {
     title: "تقرير المنصرف على المرضى _ مستلزمات طبية",
     primary: "#ec489a",
-    image: "./image/Discharged_to_patient_medical_supplies.png",
+    image: "./Image/Discharged_to_patient_medical_supplies.png",
     steps: [
       {
         id: "loadPage",
@@ -13157,7 +13157,7 @@
   "chexkValueMatching1": {
     title: "تقرير بيانات مراجعة تطابق القيمة بين الوحدات",
     primary: "#f59e0b",
-    image: "./image/chexkValueMatching1.png",
+    image: "./Image/chexkValueMatching1.png",
     steps: [
       {
         id: "loadPage",
@@ -13233,7 +13233,7 @@
   "Item_cost_report": {
     title: "تقرير تكلفة الأصناف",
     primary: "#8b5cf6",
-    image: "./image/Item_cost_report.png",
+    image: "./Image/Item_cost_report.png",
     steps: [
       {
         id: "loadPage",
@@ -13335,7 +13335,7 @@
   "Supplier_supply_report": {
     title: "تقرير توريدات الموردين",
     primary: "#06b6d4",
-    image: "./image/Supplier_supply_report.png",
+    image: "./Image/Supplier_supply_report.png",
     steps: [
       {
         id: "loadPage",
@@ -13468,7 +13468,7 @@
   "Store_balance": {
     title: "تقرير رصيد المخزن",
     primary: "#10b981",
-    image: "./image/Store_balance.png",
+    image: "./Image/Store_balance.png",
     steps: [
       {
         id: "loadPage",
@@ -13560,7 +13560,7 @@
   "Store_Card": {
     title: "تقرير كارت المخزن",
     primary: "#3b82f6",
-    image: "./image/Store_Card.png",
+    image: "./Image/Store_Card.png",
     steps: [
       {
         id: "loadPage",
@@ -13700,7 +13700,7 @@
   "ConsumptionQuantityAverage": {
     title: "تقرير متوسط الاستهلاك",
     primary: "#f59e0b",
-    image: "./image/ConsumptionQuantityAverage.png",
+    image: "./Image/ConsumptionQuantityAverage.png",
     steps: [
       {
         id: "loadPage",
@@ -13800,7 +13800,7 @@
   "consumption_rate": {
     title: "تقرير متوسط الاستهلاك - خلال فترة",
     primary: "#10b981",
-    image: "./image/consumption_rate.png",
+    image: "./Image/consumption_rate.png",
     steps: [
       {
         id: "loadPage",
@@ -13917,7 +13917,7 @@
   "Review_inventory_restriction": {
     title: "تقرير مراجعة قيود المخزون",
     primary: "#6366f1",
-    image: "./image/Review_inventory_restriction.png",
+    image: "./Image/Review_inventory_restriction.png",
     steps: [
       {
         id: "loadPage",
@@ -14050,7 +14050,7 @@
   "Receipt_monitoring": {
     title: "تقرير مراقبة الاستلامات",
     primary: "#14b8a6",
-    image: "./image/Receipt_monitoring.png",
+    image: "./Image/Receipt_monitoring.png",
     steps: [
       {
         id: "loadPage",
@@ -14205,7 +14205,7 @@
   "Stagnant_impact": {
     title: "تقرير مراقبة التأثير على وضع الركود",
     primary: "#dc2626",
-    image: "./image/Stagnant_impact.png",
+    image: "./Image/Stagnant_impact.png",
     steps: [
       {
         id: "loadPage",
@@ -14312,7 +14312,7 @@
   "TransferBetweenStores": {
     title: "تقرير مراقبة حركة التحويلات بين المخازن",
     primary: "#3b82f6",
-    image: "./image/TransferBetweenStores.png",
+    image: "./Image/TransferBetweenStores.png",
     steps: [
       {
         id: "loadPage",
@@ -14429,7 +14429,7 @@
   "Warehouse_transfer_monitoring": {
     title: "تقرير مراقبة حركة التحويلات بين المخازن",
     primary: "#0891b2",
-    image: "./image/Warehouse_transfer_monitoring.png",
+    image: "./Image/Warehouse_transfer_monitoring.png",
     steps: [
       {
         id: "loadPage",
@@ -14557,7 +14557,7 @@
   "Rpt_Inventory_equation_items_and_type": {
     title: "تقرير معادلة المخزون - أصناف وأنواع",
     primary: "#8b5cf6",
-    image: "./image/Rpt_Inventory_equation_items_and_type.png",
+    image: "./Image/Rpt_Inventory_equation_items_and_type.png",
     steps: [
       {
         id: "loadPage",
@@ -14710,7 +14710,7 @@
   "ItemsInExamination": {
     title: "تقرير موقف الأصناف التى بالفحص",
     primary: "#eab308",
-    image: "./image/ItemsInExamination.png",
+    image: "./Image/ItemsInExamination.png",
     steps: [
       {
         id: "loadPage",
@@ -14882,7 +14882,7 @@
   "Effective_Material_Balance": {
     title: "تقرير موقف المادة الفعالة",
     primary: "#14b8a6",
-    image: "./image/Effective_Material_Balance.png",
+    image: "./Image/Effective_Material_Balance.png",
     steps: [
       {
         id: "loadPage",
@@ -14973,7 +14973,7 @@
   "Reorder_Point_Report_SCR": {
     title: "تقرير نقطة إعادة الطلب",
     primary: "#ef4444",
-    image: "./image/Reorder_Point_Report_SCR.png",
+    image: "./Image/Reorder_Point_Report_SCR.png",
     steps: [
       {
         id: "loadPage",
@@ -15081,7 +15081,7 @@
   "ItemCard": {
     title: "كارت الصنف الموحد",
     primary: "#8b5cf6",
-    image: "./image/ItemCard.png",
+    image: "./Image/ItemCard.png",
     steps: [
       {
         id: "loadPage",
